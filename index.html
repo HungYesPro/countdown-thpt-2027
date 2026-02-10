@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đếm ngược thi THPT 2027 | Countdown to National Exam 2027</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            text-align: center;
+            color: white;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            max-width: 900px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
+                             0 0 30px rgba(255, 255, 255, 0.6);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .time-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px 25px;
+            border-radius: 15px;
+            min-width: 150px;
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .time-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .time-number {
+            font-size: 4em;
+            font-weight: bold;
+            display: block;
+            line-height: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .time-label {
+            font-size: 1.2em;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.9;
+        }
+
+        .exam-date {
+            margin-top: 40px;
+            font-size: 1.3em;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .motivational-text {
+            margin-top: 30px;
+            font-size: 1.4em;
+            font-style: italic;
+            opacity: 0.95;
+            animation: fadeInOut 3s ease-in-out infinite;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .subtitle {
+                font-size: 1.2em;
+            }
+            
+            .time-box {
+                min-width: 120px;
+                padding: 20px 15px;
+            }
+            
+            .time-number {
+                font-size: 3em;
+            }
+            
+            .time-label {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5em;
+            }
+            
+            .time-box {
+                min-width: 100px;
+                padding: 15px 10px;
+            }
+            
+            .time-number {
+                font-size: 2.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <h1>🎓 ĐẾM NGƯỢC THI THPT 2027 🎓</h1>
+        <p class="subtitle">Countdown to National Exam 2027</p>
+        
+        <div class="countdown">
+            <div class="time-box">
+                <span class="time-number" id="days">000</span>
+                <span class="time-label">Ngày</span>
+            </div>
+            <div class="time-box">
+                <span class="time-number" id="hours">00</span>
+                <span class="time-label">Giờ</span>
+            </div>
+            <div class="time-box">
+                <span class="time-number" id="minutes">00</span>
+                <span class="time-label">Phút</span>
+            </div>
+            <div class="time-box">
+                <span class="time-number" id="seconds">00</span>
+                <span class="time-label">Giây</span>
+            </div>
+        </div>
+        
+        <div class="exam-date">
+            📅 Ngày thi dự kiến: <strong>25 - 26 - 27 Tháng 6, 2027</strong>
+        </div>
+        
+        <p class="motivational-text">
+            "Thành công là tổng của những nỗ lực nhỏ lặp đi lặp lại mỗi ngày!"
+        </p>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                const size = Math.random() * 5 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.bottom = '-50px';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        // Countdown timer - Kỳ thi THPT 2027 (thêm 365 ngày so với 2026)
+        // Giả sử kỳ thi THPT 2026 là ngày 25/6/2026, thì THPT 2027 sẽ là 25/6/2027
+        const examDate = new Date('June 25, 2027 07:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = examDate - now;
+
+            if (distance < 0) {
+                document.querySelector('.countdown').innerHTML = '<h2 style="font-size: 2.5em;">🎉 Kỳ thi đã bắt đầu! Chúc các em làm bài tốt! 🎉</h2>';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(3, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        // Update countdown every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Motivational quotes rotation
+        const quotes = [
+            '"Thành công là tổng của những nỗ lực nhỏ lặp đi lặp lại mỗi ngày!"',
+            '"Hãy tin vào bản thân và khả năng của chính mình!"',
+            '"Mỗi ngày là một cơ hội mới để tiến gần hơn đến ước mơ!"',
+            '"Kiên trì và nỗ lực sẽ đưa bạn đến thành công!"',
+            '"Đừng bao giờ từ bỏ, vì thành công có thể đến bất cứ lúc nào!"',
+            '"Học tập không phải là cuộc đua ngắn, mà là một hành trình dài!"'
+        ];
+
+        let quoteIndex = 0;
+        setInterval(() => {
+            quoteIndex = (quoteIndex + 1) % quotes.length;
+            document.querySelector('.motivational-text').textContent = quotes[quoteIndex];
+        }, 8000);
+    </script>
+</body>
+</html>
